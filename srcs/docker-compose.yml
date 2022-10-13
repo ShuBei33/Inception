@@ -6,4 +6,16 @@ services:
     container_name: my-nginx-container
     ports:
       - "443:443"
+    networks:
+      - backend
     restart: always
+
+  mariadb:
+    build: requirements/mariadb
+    container_name: my-mariadb-container
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - backend
+    restart: always
+    env_file: .env

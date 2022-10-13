@@ -11,4 +11,4 @@ RUN apk add --update --no-cache nginx openssl \
 COPY ./conf/mynginx.conf /etc/nginx/http.d/nginx.conf
 
 #run in foreground
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
