@@ -1,4 +1,4 @@
 FROM alpine:3.15.6
 
-RUN echo kaew
+RUN apk add --update --no-cache 
 

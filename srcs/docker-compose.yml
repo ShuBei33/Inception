@@ -7,8 +7,12 @@ services:
     container_name: nginx
     ports:
       - "443:443"
+    depends_on:
+      - wordpress
     networks:
-      - backend
+      - frontend
+    volumes:
+      - wp_data:/var/www/html/wordpress
     restart: always
     env_file: .env
 
@@ -25,8 +29,26 @@ services:
     restart: always
     env_file: .env
 
+  wordpress:
+    image: wordpress:$TAG
+    build: requirements/mariadb
+    container_name: wordpress
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mariadb
+    networks:
+      - backend
+      - frontend
+    volumes:
+      - wp_data:/var/www/html/wordpress
+    restart: always
+    env_file: .env
+
 networks:
   backend:
+  frontend:
 
 volumes:
   db_data:
+  wp_data:
