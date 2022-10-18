@@ -45,8 +45,6 @@ stop:
 	$(COMPOSE) stop $(c)
 #stop the containers
 
-restart:
-	make stop
-	make up
+restart: stop build up
 
 .PHONY: build up start ps logs down destroy stop restart

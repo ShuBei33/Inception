@@ -2,20 +2,31 @@ version: '3'
 
 services:
   nginx:
+    image: nginx:$TAG
     build: requirements/nginx
-    container_name: my-nginx-container
+    container_name: nginx
     ports:
       - "443:443"
     networks:
       - backend
     restart: always
+    env_file: .env
 
   mariadb:
+    image: mariadb:$TAG
     build: requirements/mariadb
-    container_name: my-mariadb-container
-    volumes:
-      - db_data:/var/lib/mysql
+    container_name: mariadb
+    ports:
+      - "3306:3306"
     networks:
       - backend
+    volumes:
+      - db_data:/var/lib/mysql
     restart: always
     env_file: .env
+
+networks:
+  backend:
+
+volumes:
+  db_data:
