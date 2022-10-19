@@ -48,7 +48,7 @@ services:
   #     - backend
   #     - frontend
   #   volumes:
-  #     - wp_data:/var/www/html/wordpress
+  #     - wp_data:/var/www/wordpress
   #   restart: always
   #   env_file: .env
   #   # healthcheck:
