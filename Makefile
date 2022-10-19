@@ -32,7 +32,7 @@ start:
 #start all the containers
 
 ps logs:
-	$(COMPOSE) $@
+	$(COMPOSE) $@ $(c)
 
 down:
 	$(COMPOSE) down $(c)
@@ -47,4 +47,10 @@ stop:
 
 restart: stop build up
 
-.PHONY: build up start ps logs down destroy stop restart
+fclean:
+	docker volume prune --force
+
+
+re: down fclean up
+
+.PHONY: build up start ps logs down destroy stop restart fclean re
