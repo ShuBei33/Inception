@@ -14,8 +14,9 @@ help:
 		@echo "- make ps logs	  -> display containers state + logs"
 		@echo "- make start/stop -> start or stop containers"
 		@echo "- make down	  -> stop and remove containers"
-		@echo "- make destroy	  -> down + clean volumes"
-		@echo "- make restart	  -> stop + up\n"
+		@echo "- make restart	  -> stop + up"
+		@echo "- make prune	  -> erase docker volumes"
+		@echo "- make re	  -> down + prune + build + up\n"
 		@echo "note: <make> <option> c=<container's name> to apply to only one container"
 		@echo "---------------------------------------------------------------------------------\n"
 
@@ -38,19 +39,15 @@ down:
 	$(COMPOSE) down $(c)
 #stop and remove containers
 
-destroy:
-	$(COMPOSE) down -v $(c)
-
 stop:
 	$(COMPOSE) stop $(c)
 #stop the containers
 
 restart: stop build up
 
-fclean:
+prune:
 	docker volume prune --force
 
+re: down prune build up
 
-re: down fclean up
-
-.PHONY: build up start ps logs down destroy stop restart fclean re
+.PHONY: build up start ps logs down stop restart prune re
