@@ -7,12 +7,12 @@ services:
     container_name: nginx
     ports:
       - "443:443"
-    # depends_on:
-      # - wordpress
-    # networks:
-    #   - frontend
-    # volumes:
-    #   - wp_data:/var/www/html/wordpress
+    depends_on:
+      - wordpress
+    networks:
+      - frontend
+    volumes:
+      - wp_data:/var/www/wordpress
     restart: always
     env_file: .env
 
@@ -36,21 +36,21 @@ services:
     #   retries: 6
     #   start_period: 4s
 
-  # wordpress:
-  #   image: wordpress:$TAG
-  #   build: requirements/mariadb
-  #   container_name: wordpress
-  #   ports:
-  #     - "9000:9000"
-  #   depends_on:
-  #     - mariadb
-  #   networks:
-  #     - backend
-  #     - frontend
-  #   volumes:
-  #     - wp_data:/var/www/wordpress
-  #   restart: always
-  #   env_file: .env
+  wordpress:
+    image: wordpress:$TAG
+    build: requirements/mariadb
+    container_name: wordpress
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mariadb
+    networks:
+      - backend
+      - frontend
+    volumes:
+      - wp_data:/var/www/wordpress
+    restart: always
+    env_file: .env
   #   # healthcheck:
   #     # test: ["executable", "arg"] # cgi-fcgi
   #     # interval: 5s
@@ -60,8 +60,8 @@ services:
 
 networks:
   backend:
-  # frontend:
+  frontend:
 
 volumes:
   db_data3:
-  # wp_data:
+  wp_data:
