@@ -1,12 +1,23 @@
-sleep 6
+sleep 10
 
+set -x
+
+cd /var/www/wordpress
+
+if [ -f /var/www/wordpress/wp-config.php ]; then
+	echo "Already set up, starting..."
+	exec /usr/sbin/php-fpm7 -F
+	exit 1
+fi
+
+echo "Installing..."
 wp config create	--allow-root \
 					--dbname=$DB_NAME \
 					--dbuser=$MYSQL_USER \
 					--dbpass=$MYSQL_PASSWORD \
 					--dbhost=mariadb:3306 --path='/var/www/wordpress'
 wp db create
-wp core install		--url="bbrassar.42.fr/wordpress" \
+wp core install		--url="estoffel.42.fr/wordpress" \
 					--title="${WP_TITLE}" \
 					--admin_user="${WP_ADMIN_USER}" \
 					--admin_password="${WP_ADMIN_PASSWORD}" \
@@ -19,4 +30,4 @@ wp user create 		"${WP_USER}" \
 
 mkdir -p /run/php
 
-/usr/sbin/php-fpm8 -F
+exec /usr/sbin/php-fpm7 -F

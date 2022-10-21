@@ -10,7 +10,7 @@ services:
     depends_on:
       - wordpress
     networks:
-      - frontend
+      - inception
     volumes:
       - wp_data:/var/www/wordpress
     restart: always
@@ -23,7 +23,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - backend
+      - inception
     volumes:
       - db_data3:/var/lib/mysql
     restart: always
@@ -38,15 +38,14 @@ services:
 
   wordpress:
     image: wordpress:$TAG
-    build: requirements/mariadb
+    build: requirements/wordpress
     container_name: wordpress
     ports:
       - "9000:9000"
     depends_on:
       - mariadb
     networks:
-      - backend
-      - frontend
+      - inception
     volumes:
       - wp_data:/var/www/wordpress
     restart: always
@@ -59,8 +58,7 @@ services:
   #     # start_period: 4s
 
 networks:
-  backend:
-  frontend:
+  inception:
 
 volumes:
   db_data3:
