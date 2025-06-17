@@ -62,4 +62,17 @@ networks:
 
 volumes:
   db_data3:
+    name: db_data3
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/estoffel/data/mariadb
+
   wp_data:
+    name: db_data3
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/estoffel/data/wordpress
