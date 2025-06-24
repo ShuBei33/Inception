@@ -1,4 +1,4 @@
-COMPOSE	= docker-compose -f ./srcs/docker-compose.yml
+COMPOSE	= sudo docker-compose -f ./srcs/docker-compose.yml
 
 all:
 	make build
@@ -46,7 +46,7 @@ stop:
 restart: stop build up
 
 prune:
-	docker volume prune --force
+	sudo docker volume prune --force
 
 re: down prune build up
 

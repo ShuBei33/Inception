@@ -70,7 +70,7 @@ volumes:
       device: /home/estoffel/data/mariadb
 
   wp_data:
-    name: db_data3
+    name: wp_data
     driver: local
     driver_opts:
       type: none
